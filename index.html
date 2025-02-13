@@ -1,22 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
+    <title>Colombian Map</title>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Colombia Municipalities Map</title>
-    
-    <!-- Load D3.js -->
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    
-    <!-- Load TopoJSON -->
-    <script src="https://unpkg.com/topojson@3"></script>
-
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
 <body>
-    <svg id="map"></svg>
+    <div id="map"></div>
+    <div id="info-box">Municipio</div>
+    <div id="info-box1"></div>
 
-    <!-- Load Your Map Script After Everything Else -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="map.js"></script>
 </body>
 </html>
