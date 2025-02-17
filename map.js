@@ -135,9 +135,9 @@ fetch('cases.json')
             // Add Popup with Municipality Info
             circle.bindPopup(`
                 <strong>${municipality}</strong><br>
-                Avg Cases: ${average_cases.toFixed(2)}<br>
-                Avg Population: ${average_population.toFixed(2)}<br>
-                Cases per Population: ${(case_per_population * 100).toFixed(2)}%
+                Average Cases: ${average_cases.toFixed(2)}<br>
+                Average Population: ${average_population.toFixed(2)}<br>
+                Cases per Capita: ${(case_per_population * 100).toFixed(2)}%
             `);
 
             circles.push(circle);

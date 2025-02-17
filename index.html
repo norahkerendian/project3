@@ -18,8 +18,25 @@
         <p id="populationValue">0</p>
     
         <label for="casesSlider">Min Cases:.....</label>
-        <input type="range" id="casesSlider" min="0" max="100" step="100" value="0" style="width: 300px;">
+        <input type="range" id="casesSlider" min="0" max="100" step="10" value="0" style="width: 300px;">
         <p id="casesValue">0</p>
+    </div>
+    <div id="title">
+        <label>Dengue in Colombia</label>
+    </div>
+    <div id="instructions">
+        <label>Click the bubbles to learn more about Dengue cases in Colombia</label>
+    </div>
+    <div id="info">
+        <label>Data collected from <br>physionet.org/content/multimodal-satellite-data/1.0.0/<br>(2007-2019)</label>
+    </div>
+    <div id="legend">
+        <p style="font-size: 14pt;">Legend</p>
+        <p style="color: darkred">Highest rate of cases</p>
+        <p style="color: red">High rate of cases</p>
+        <p style="color: orange">Medium rate of cases</p>
+        <p style="color: yellow">low rate of cases</p>
+        <p style="color: green">lowest rate of cases (above 0)</p>
     </div>
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
