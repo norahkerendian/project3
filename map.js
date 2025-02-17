@@ -45,9 +45,44 @@ map.on('mousemove', function(e) {
     infoBox1.innerHTML = e.latlng.lat.toFixed(6) + ', ' + e.latlng.lng.toFixed(6); 
 });
 
+let circles = [];
+let minPopulation = 0, maxPopulation = 1000000;
+let minCases = 0, maxCases = 5000;
+
+// Get slider elements
+const populationSlider = document.getElementById("populationSlider");
+const casesSlider = document.getElementById("casesSlider");
+const populationValue = document.getElementById("populationValue");
+const casesValue = document.getElementById("casesValue");
+
+// Listen for slider changes
+document.getElementById("populationSlider").addEventListener("input", function () {
+    minPopulation = parseInt(this.value);
+    document.getElementById("populationValue").textContent = minPopulation;
+    updateFilters();
+});
+
+document.getElementById("casesSlider").addEventListener("input", function () {
+    minCases = parseInt(this.value);
+    document.getElementById("casesValue").textContent = minCases;
+    updateFilters();
+});
+
+populationSlider.min = minPopulation;
+populationSlider.max = maxPopulation;
+populationSlider.value = minPopulation;
+populationValue.textContent = minPopulation.toLocaleString();
+
+casesSlider.min = minCases;
+casesSlider.max = maxCases;
+casesSlider.value = minCases;
+casesValue.textContent = minCases.toLocaleString();
+
 fetch('cases.json')
     .then(response => response.json())
     .then(caseData => {
+
+        // // Now plot the data
         caseData.forEach(entry => {
             let lat = entry.lat;
             let lng = entry.lng;
@@ -93,8 +128,9 @@ fetch('cases.json')
                 color: color,  
                 fillColor: color,  
                 fillOpacity: 0.75,  
-                radius: radius  
-            }).addTo(map);
+                radius: radius,
+                customData: { population: average_population, cases: average_cases }
+            });
 
             // Add Popup with Municipality Info
             circle.bindPopup(`
@@ -103,8 +139,36 @@ fetch('cases.json')
                 Avg Population: ${average_population.toFixed(2)}<br>
                 Cases per Population: ${(case_per_population * 100).toFixed(2)}%
             `);
+
+            circles.push(circle);
+            circle.addTo(map);
         });
+
+        updateFilters();
     })
     .catch(error => console.error("Error loading case data:", error));
 
+// Update filters when sliders change
+populationSlider.addEventListener("input", function () {
+    minPopulation = parseInt(this.value);
+    populationValue.textContent = minPopulation.toLocaleString();
+    updateFilters();
+});
 
+casesSlider.addEventListener("input", function () {
+    minCases = parseInt(this.value);
+    casesValue.textContent = minCases.toLocaleString();
+    updateFilters();
+});
+
+// Function to filter map circles
+function updateFilters() {
+    circles.forEach(circle => {
+        let { population, cases } = circle.options.customData;
+        if (population >= minPopulation && cases >= minCases) {
+            circle.addTo(map);
+        } else {
+            map.removeLayer(circle);
+        }
+    });
+}

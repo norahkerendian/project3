@@ -19,3 +19,21 @@ html, body, #map {
     font-family: Monaco, monospace;
     padding: 10px;
 }
+#controls {
+    font-family: Monaco, monospace;
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+    z-index: 1000;
+    input[type="range"] {
+        width: 300px; /* Adjust as needed */
+        accent-color: #007bff; /* Optional: Change color */
+    }
+}
+h1 {
+    margin-top: 20px;
+}

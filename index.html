@@ -11,6 +11,16 @@
     <div id="map"></div>
     <div id="info-box">Municipio</div>
     <div id="info-box1"></div>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <div id="controls">
+        <label for="populationSlider">Min Population:</label>
+        <input type="range" id="populationSlider" min="0" max="100" step="100" value="0" style="width: 300px;">
+        <p id="populationValue">0</p>
+    
+        <label for="casesSlider">Min Cases:.....</label>
+        <input type="range" id="casesSlider" min="0" max="100" step="100" value="0" style="width: 300px;">
+        <p id="casesValue">0</p>
+    </div>
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="map.js"></script>
