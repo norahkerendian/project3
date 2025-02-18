@@ -2,12 +2,15 @@ html, body, #map {
     height: 100%;
     margin: 0;
     padding: 0;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    background-color: white !important;
 }
 #info-box {
     position: absolute;
     top: 50px;
     left: 100px;
-    color: white;
+    color: black;
     font-family: Monaco, monospace;
     padding: 10px;
 }
@@ -15,32 +18,47 @@ html, body, #map {
     position: absolute;
     top: 70px;
     left: 100px;
-    color: white;
+    color: black;
     font-family: Monaco, monospace;
     padding: 10px;
 }
 #controls {
-    font-family: Monaco, monospace;
+    font-family: Playfair, serif;
     position: absolute;
     top: 30px;
     right: 50px;
-    background: white;
-    padding: 10px;
+    /*background: white;*/
+    padding: 20px;
     border-radius: 5px;
-    /* box-shadow: 2px 2px 10px rgba(0,0,0,0.3); */
+    /*box-shadow: 2px 2px 10px rgba(0,0,0,0.3); */
     z-index: 1000;
     input[type="range"] {
         width: 300px; /* Adjust as needed */
-        accent-color: #007bff; /* Optional: Change color */
+        accent-color: #d8d8f6; /* Optional: Change color */
     }
 }
+
+.slider-container {
+    margin-bottom: 15px;
+}
+
+.slider-container label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+.slider-container input[type="range"] {
+    width: 100%;
+    accent-color: #E6E6FA; /* Optional: Change color */
+}
+
 #title {
-    font-family: Monaco, monospace;
-    font-size: 20pt;
+    font-family: Playfair, serif;
+    font-size: 30pt;
     position: absolute;
     top: 30px;
-    left: 500px;
-    background: white;
+    left: 20px;
     padding: 10px;
     border-radius: 5px;
     /* box-shadow: 2px 2px 10px rgba(0,0,0,0.3); */
@@ -51,7 +69,7 @@ html, body, #map {
     }
 }
 #instructions {
-    font-family: Monaco, monospace;
+    font-family: Playfair, serif;
     position: absolute;
     top: 150px;
     left: 50px;
@@ -67,12 +85,11 @@ html, body, #map {
 }
 
 #info {
-    font-family: Monaco, monospace;
+    font-family: Playfair, serif;
     font-size: 10pt;
     position: absolute;
-    top: 210px;
-    left: 50px;
-    background: white;
+    bottom: 20px;
+    left: 20px;
     padding: 10px;
     border-radius: 5px;
     /* box-shadow: 2px 2px 10px rgba(0,0,0,0.3); */
@@ -83,19 +100,94 @@ html, body, #map {
     }
 }
 
+#tooltip {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.9); /* Slight transparency for a sleek look */
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    display: none;
+    pointer-events: none;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    color: #333;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: opacity 0.2s ease-in-out;
+    max-width: 200px;
+}
+
+/* Optional: Add a small arrow at the top */
+#tooltip::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: #ccc transparent transparent transparent;
+}
+
 #legend {
-    font-family: Monaco, monospace;
+    font-family: Playfair, serif;
     font-size: 10pt;
     position: absolute;
     top: 350px;
     left: 50px;
-    background: lavender;
+    /*background: rgba(255, 255, 255, 0.9);*/
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 10px;
     /* box-shadow: 2px 2px 10px rgba(0,0,0,0.3); */
     z-index: 1000;
     input[type="range"] {
         width: 300px; /* Adjust as needed */
         accent-color: #007bff; /* Optional: Change color */
     }
+}
+
+#nav-button {
+    position: absolute;
+    bottom: 80px;
+    left: 20px;
+}
+
+#nav-button button {
+    background-color: white;
+    color: #9f9ffa;
+    border: 2px solid#9f9ffa;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#nav-button button:hover {
+    background-color: #c3c3f3;
+    color: white;
+}
+
+#writeup-button {
+    position: absolute;
+}
+
+#writeup-button button {
+    background-color: white;
+    color: #9f9ffa;
+    border: 2px solid#9f9ffa;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#writeup-button button:hover {
+    background-color: #c3c3f3;
+    color: white;
+}
+
+/* Write Up */
+h1 {
+    font-family: Playfair, serif;
+    font-size: 30pt;
 }

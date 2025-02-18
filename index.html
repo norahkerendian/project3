@@ -9,37 +9,55 @@
 </head>
 <body>
     <div id="map"></div>
+    <div id="tooltip"></div>
+    <!--
     <div id="info-box">Municipio</div>
     <div id="info-box1"></div>
+    -->
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <div id="controls">
-        <label for="populationSlider">Min Population:</label>
-        <input type="range" id="populationSlider" min="0" max="100" step="100" value="0" style="width: 300px;">
-        <p id="populationValue">0</p>
+        <div class="slider-container">
+            <label for="populationSlider">Minimum Population: <span id="populationValue">0</span></label>
+            <input type="range" id="populationSlider" min="0" max="100" step="100" value="0">
+        </div>
     
-        <label for="casesSlider">Min Cases:.....</label>
-        <input type="range" id="casesSlider" min="0" max="100" step="10" value="0" style="width: 300px;">
-        <p id="casesValue">0</p>
+        <div class="slider-container">
+            <label for="casesSlider">Minimum Cases: <span id="casesValue">0</span></label>
+            <input type="range" id="casesSlider" min="0" max="100" step="10" value="0">
+        </div>
     </div>
     <div id="title">
         <label>Dengue in Colombia</label>
     </div>
+    <!--
     <div id="instructions">
         <label>Click the bubbles to learn more about Dengue cases in Colombia</label>
     </div>
     <div id="info">
         <label>Data collected from <br>physionet.org/content/multimodal-satellite-data/1.0.0/<br>(2007-2019)</label>
     </div>
+    -->
+    <!--
     <div id="legend">
         <p style="font-size: 14pt;">Legend</p>
         <p style="color: darkred">Highest rate of cases</p>
         <p style="color: red">High rate of cases</p>
         <p style="color: orange">Medium rate of cases</p>
-        <p style="color: yellow">low rate of cases</p>
-        <p style="color: green">lowest rate of cases (above 0)</p>
+        <p style="color: yellow">Low rate of cases</p>
+        <p style="color: green">Lowest rate of cases (above 0)</p>
     </div>
-
+    -->
+    <div id="nav-button">
+        <button onclick="window.location.href='writeup.html'">About This Project</button>
+    </div>
+    <div id="info">
+        <label>Data collected from <br>physionet.org/content/multimodal-satellite-data/1.0.0/<br>(2007-2019)</label>
+    </div>
+    <div>
+        <svg id="legend" height=300 width=450></svg>
+    </div>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="map.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.1.0/chroma.min.js"></script>
 </body>
 </html>

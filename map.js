@@ -9,7 +9,7 @@ var map = L.map('map', {
 });
 
 map.createPane('background');
-map.getPane('background').style.background = "black";
+map.getPane('background').style.background = "white";
 
 // 🔹 Create a new pane for circles with a HIGHER zIndex
 map.createPane('circlesPane');
@@ -18,6 +18,7 @@ map.getPane('circlesPane').style.background = "red";
 
 var infoBox = document.getElementById('info-box');
 var infoBox1 = document.getElementById('info-box1');
+
 
 fetch('municipalities.json')
     .then(response => response.json())
@@ -78,6 +79,7 @@ casesSlider.max = maxCases;
 casesSlider.value = minCases;
 casesValue.textContent = minCases.toLocaleString();
 
+var tooltip = document.getElementById("tooltip");
 fetch('cases.json')
     .then(response => response.json())
     .then(caseData => {
@@ -105,7 +107,22 @@ fetch('cases.json')
             let case_per_population = average_population > 0 ? (average_cases / average_population) : 0;
 
             console.log(case_per_population);
+            
+            let color;
+            if (case_per_population <= 0.0035) {
+                color = "#ffcccc"; 
+            } else if (case_per_population <= 0.007) {
+                color = "#ff6666"; 
+            } else if (case_per_population <= 0.0105) {
+                color = "#ff0000"; 
+            } else if (case_per_population <= 0.014) {
+                color = "#cc0000"; 
+            } else {
+                color = "#800000"; 
+            }
+            
 
+            /*
             let color;
             if (case_per_population <= 0.0035) {
                 color = "lightgreen"; // 🟢 Low
@@ -118,6 +135,7 @@ fetch('cases.json')
             } else {
                 color = "darkred"; // 🏴 Very High
             }
+            */
 
             // 🔹 Scale the circle size (Adjust scale factor as needed)
             let radius = case_per_population * 3000000; // Scale to make it visible
@@ -133,12 +151,38 @@ fetch('cases.json')
             });
 
             // Add Popup with Municipality Info
+            /*
             circle.bindPopup(`
                 <strong>${municipality}</strong><br>
                 Average Cases: ${average_cases.toFixed(2)}<br>
                 Average Population: ${average_population.toFixed(2)}<br>
                 Cases per Capita: ${(case_per_population * 100).toFixed(2)}%
             `);
+            */
+           //tooltip event listeners
+            circle.on("mouseover", function (e) {
+                let { population, cases } = e.target.options.customData;
+
+                tooltip.innerHTML = `
+                    <strong>${municipality}</strong><br>
+                    Average Cases: ${cases.toFixed(2)}<br>
+                    Average Population: ${population.toLocaleString()}<br>
+                    Cases per Capita: ${(cases / population * 100).toFixed(2)}%
+                `;
+        
+                tooltip.style.display = "block";
+                tooltip.style.left = (e.originalEvent.pageX + 10) + "px";
+                tooltip.style.top = (e.originalEvent.pageY + 10) + "px";
+            });
+    
+            circle.on("mousemove", function (e) {
+                tooltip.style.left = (e.originalEvent.pageX + 10) + "px";
+                tooltip.style.top = (e.originalEvent.pageY + 10) + "px";
+            });
+    
+            circle.on("mouseout", function () {
+                tooltip.style.display = "none";
+            });
 
             circles.push(circle);
             circle.addTo(map);
@@ -172,3 +216,52 @@ function updateFilters() {
         }
     });
 }
+
+//tooltip
+var tooltip = document.getElementById("tooltip");
+circles.forEach(circle => {
+    circle.on("mouseover", function (e) {
+        let { population, cases } = e.target.options.customData;
+        let municipality = e.target.getPopup().getContent().split("<strong>")[1].split("</strong>")[0]; // Extract municipality name
+
+        tooltip.innerHTML = `
+            <strong>${municipality}</strong><br>
+            Average Cases: ${cases.toFixed(2)}<br>
+            Average Population: ${population.toLocaleString()}<br>
+            Cases per Capita: ${(cases / population * 100).toFixed(2)}%
+        `;
+
+        tooltip.style.display = "block";
+        tooltip.style.left = (e.originalEvent.pageX + 10) + "px";
+        tooltip.style.top = (e.originalEvent.pageY + 10) + "px";
+    });
+
+    circle.on("mousemove", function (e) {
+        tooltip.style.left = (e.originalEvent.pageX + 10) + "px";
+        tooltip.style.top = (e.originalEvent.pageY + 10) + "px";
+    });
+
+    circle.on("mouseout", function () {
+        tooltip.style.display = "none";
+    });
+});
+
+//legend
+var svg = d3.select("#legend")
+    .attr("height", 200)
+    .attr("width", 320);
+
+    svg.append("text").attr("x", 8).attr("y", 20).text("Rate of Dengue Cases per Capita").style("font-size", "16px").attr("font-weight", "bold");
+
+    // Handmade legend
+    svg.append("circle").attr("cx", 20).attr("cy", 45).attr("r", 6).style("fill", "#ffcccc").style("stroke", "black").style("stroke-width", "1px");
+    svg.append("circle").attr("cx", 20).attr("cy", 70).attr("r", 8).style("fill", "#ff6666").style("stroke", "black").style("stroke-width", "1px");
+    svg.append("circle").attr("cx", 20).attr("cy", 100).attr("r", 10).style("fill", "#ff0000").style("stroke", "black").style("stroke-width", "1px");
+    svg.append("circle").attr("cx", 20).attr("cy", 130).attr("r", 12).style("fill", "#cc0000").style("stroke", "black").style("stroke-width", "1px");
+    svg.append("circle").attr("cx", 20).attr("cy", 165).attr("r", 14).style("fill", "#800000").style("stroke", "black").style("stroke-width", "1px");
+    
+    svg.append("text").attr("x", 40).attr("y", 45).text("Lowest (<= 0.035%)").style("font-size", "15px").attr("alignment-baseline", "middle");
+    svg.append("text").attr("x", 40).attr("y", 70).text("Low (0.35%-0.70%)").style("font-size", "15px").attr("alignment-baseline", "middle");
+    svg.append("text").attr("x", 40).attr("y", 100).text("Medium (0.70%-1.05%)").style("font-size", "15px").attr("alignment-baseline", "middle");
+    svg.append("text").attr("x", 40).attr("y", 130).text("High (1.05%- 1.40%)").style("font-size", "15px").attr("alignment-baseline", "middle");
+    svg.append("text").attr("x", 40).attr("y", 165).text("Highest (>1.40%)").style("font-size", "15px").attr("alignment-baseline", "middle");
