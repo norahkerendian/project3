@@ -122,20 +122,20 @@ fetch('cases.json')
             }
             
 
-            /*
-            let color;
-            if (case_per_population <= 0.0035) {
-                color = "lightgreen"; // 🟢 Low
-            } else if (case_per_population <= 0.007) {
-                color = "yellow"; // 🟡 Medium-Low
-            } else if (case_per_population <= 0.0105) {
-                color = "orange"; // 🟠 Medium
-            } else if (case_per_population <= 0.014) {
-                color = "red"; // 🔴 High
-            } else {
-                color = "darkred"; // 🏴 Very High
-            }
-            */
+            
+            // let color;
+            // if (case_per_population <= 0.0035) {
+            //     color = "#253494" ; // 🟢 Low
+            // } else if (case_per_population <= 0.007) {
+            //     color = "#2c7fb8"; // 🟡 Medium-Low
+            // } else if (case_per_population <= 0.0105) {
+            //     color = "#41b6c4"; // 🟠 Medium
+            // } else if (case_per_population <= 0.014) {
+            //     color = "#a1dab4"; // 🔴 High
+            // } else {
+            //     color = "#ffffcc"; // 🏴 Very High
+            // }
+            
 
             // 🔹 Scale the circle size (Adjust scale factor as needed)
             let radius = case_per_population * 3000000; // Scale to make it visible
